@@ -17,7 +17,15 @@ class StaticArray
 public:
   StaticArray()
   {
-	fill(value, value + CAP, 0);
+	if (typeid(T) == typeid(char)) {
+	  fill(value,value + CAP, '0');
+	}
+	else if (typeid(T) == typeid(string)) {
+	  fill(value, value + CAP, '0');
+	}
+	else 
+	  fill(value, value + CAP, 0);
+
   }
   int capacity()
   {
@@ -31,7 +39,7 @@ template <typename T, int CAP>
 T StaticArray<T, CAP>::operator[](int index) const
 {
   if (index < 0 || index > CAP - 1) {
-	return -1;
+	return dummy;
   }
   else {
 	return value[index];
